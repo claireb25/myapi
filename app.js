@@ -1,7 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 
-var tabledata = {};
+const tabledata = {};
 
 var dbconnect = require("./dbconnect.js");
 var routes = require("./routes/routes.js");

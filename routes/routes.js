@@ -1,8 +1,13 @@
 var dbconnect = require("./../dbconnect.js");
 
 
-
 var appRouter = function (app,tabledata) {
+
+  // app.param('id', function (req, res, next, id) {
+  //   console.log('CALLED ONLY ONCE');
+  //   next();
+  // });
+
   app.get("/", function(req, res){
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.json(tabledata);
@@ -27,8 +32,10 @@ var appRouter = function (app,tabledata) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.json(tabledata.projets);
   })
-  app.get("/projet", function (req, res) {
+  app.get("/projets/:id", function (req, res, id) {
     res.setHeader('Access-Control-Allow-Origin', '*');
+    var id = req.params.id
+    console.log(id);
     res.json(tabledata.projet);
   })
 };

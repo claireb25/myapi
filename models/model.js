@@ -13,7 +13,7 @@ function sql(key, tabledata, sqlrequest){
         });
     }
 module.exports.presentation = function(tabledata){
-    sql('presentation', tabledata, 'SELECT nom, description, email_address as email, phone_number as tel, linkedin_link as linkedin, github_link as github, places.place_name as entreprise, cities.city as ville FROM presentation INNER JOIN places ON presentation.place_id = places.id INNER JOIN cities ON places.city_id = cities.id');
+    sql('presentation', tabledata, "SELECT nom, description, email_address as email, phone_number as tel, linkedin_link as linkedin, github_link as github, places.place_name as entreprise, cities.city as ville, cv_link as cv FROM presentation INNER JOIN places ON presentation.place_id = places.id INNER JOIN cities ON places.city_id = cities.id");
 }
 
 module.exports.experiences = function(tabledata){
@@ -25,13 +25,13 @@ module.exports.formations = function(tabledata){
 }
 
 module.exports.competences = function(tabledata){
-    sql('competences',tabledata,'SELECT skill FROM skills')
+    sql('competences',tabledata,'SELECT GROUP_CONCAT(skill SEPARATOR ", ") as skill FROM skills')
 }
 
 module.exports.projets = function(tabledata){
-    sql('projets',tabledata, 'SELECT project_name titre, images.picture as image FROM projects INNER JOIN images ON projects.main_img_id = images.id'); 
+    sql('projets',tabledata, 'SELECT projects.id, project_name titre, places.place_name lieu, images.picture image FROM projects INNER JOIN images ON projects.main_img_id = images.id INNER JOIN places ON projects.place_id = places.id'); 
 }
 
 module.exports.projet = function(tabledata){
-    sql('projet',tabledata, 'SELECT projects.project_name as projet, projects.project_description as description, projects.link_to_project as lien, dates.year as annee, places.place_name as ville, mainImg.picture as mainImg, SecImg.picture as secImg FROM projects INNER JOIN dates ON projects.project_year_id = dates.id INNER JOIN places ON projects.place_id = places.id INNER JOIN images as mainImg ON projects.main_img_id = mainImg.id INNER JOIN images as SecImg ON projects.sec_img_id = SecImg.id WHERE projects.id  = 1');      
+    sql('projet',tabledata, "SELECT projects.id, projects.project_name as projet, projects.project_description as description, projects.link_to_project as lien, dates.year as annee, places.place_name as ville, mainImg.picture as mainImg, SecImg.picture as secImg FROM projects INNER JOIN dates ON projects.project_year_id = dates.id INNER JOIN places ON projects.place_id = places.id INNER JOIN images as mainImg ON projects.main_img_id = mainImg.id INNER JOIN images as SecImg ON projects.sec_img_id = SecImg.id WHERE projects.id");      
 }
