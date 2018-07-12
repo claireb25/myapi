@@ -1,7 +1,7 @@
 var dbconnect = require("./../dbconnect.js");
 
 
-var appRouter = function (app,tabledata) {
+var appRouter = function (app,tabledata, id) {
 
   // app.param('id', function (req, res, next, id) {
   //   console.log('CALLED ONLY ONCE');
