@@ -32,11 +32,16 @@ var appRouter = function (app,tabledata, id) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.json(tabledata.projets);
   })
-  app.get("/projets/:id", function (req, res, id) {
+  app.get("/projets/:id", function (req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    var id = req.params.id
-    console.log(id);
-    res.json(tabledata.projet);
+    tabledata.projets.forEach(function(element) {
+      if(element.id == req.params.id){
+        console.log(element);
+      elem = element;
+      return;
+      }
+    })
+    res.json(elem);
   })
 };
 

@@ -13,7 +13,8 @@ model.experiences(tabledata);
 model.formations(tabledata);
 model.competences(tabledata);
 model.projets(tabledata);
-model.projet(tabledata);
+model.projets(tabledata)
+// model.projets(tabledata);
 
 
 app.use(bodyParser.json());

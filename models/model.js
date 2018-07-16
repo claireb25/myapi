@@ -31,9 +31,9 @@ module.exports.competences = function(tabledata){
 }
 
 module.exports.projets = function(tabledata){
-    sql('projets',tabledata, 'SELECT projects.id, project_name titre, places.place_name lieu, images.picture image FROM projects INNER JOIN images ON projects.main_img_id = images.id INNER JOIN places ON projects.place_id = places.id'); 
+    sql('projets',tabledata, 'SELECT projects.id, projects.project_name as titre, projects.project_description as description, projects.link_to_project as lien, dates.year as annee, places.place_name as lieu, mainImg.picture as mainImg, SecImg.picture as secImg, GROUP_CONCAT(skills.skill SEPARATOR ", ") as skills FROM projects INNER JOIN projects_skills ON projects_skills.projects_id = projects.id INNER JOIN skills ON projects_skills.skills_id = skills.id INNER JOIN dates ON projects.project_year_id = dates.id INNER JOIN places ON projects.place_id = places.id INNER JOIN images as mainImg ON projects.main_img_id = mainImg.id INNER JOIN images as SecImg ON projects.sec_img_id = SecImg.id GROUP BY projects.id'); 
 }
 
-module.exports.projet = function(tabledata, id = null){
-    sql('projet',tabledata, "SELECT projects.id, projects.project_name as projet, projects.project_description as description, projects.link_to_project as lien, dates.year as annee, places.place_name as ville, mainImg.picture as mainImg, SecImg.picture as secImg FROM projects INNER JOIN dates ON projects.project_year_id = dates.id INNER JOIN places ON projects.place_id = places.id INNER JOIN images as mainImg ON projects.main_img_id = mainImg.id INNER JOIN images as SecImg ON projects.sec_img_id = SecImg.id WHERE projects.id =" + id);      
-}
+// module.exports.projet = function(tabledata, id = 1){
+//     sql('projet',tabledata, "SELECT projects.id, projects.project_name as projet, projects.project_description as description, projects.link_to_project as lien, dates.year as annee, places.place_name as ville, mainImg.picture as mainImg, SecImg.picture as secImg FROM projects INNER JOIN dates ON projects.project_year_id = dates.id INNER JOIN places ON projects.place_id = places.id INNER JOIN images as mainImg ON projects.main_img_id = mainImg.id INNER JOIN images as SecImg ON projects.sec_img_id = SecImg.id WHERE projects.id =" + id);      
+// }
