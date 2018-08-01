@@ -15,7 +15,7 @@ function sql(key, tabledata, sqlrequest){
         });
     }
 module.exports.presentation = function(tabledata){
-    sql('presentation', tabledata, "SELECT nom, description, email_address as email, phone_number as tel, linkedin_link as linkedin, github_link as github, places.place_name as entreprise, cities.city as ville, cv_link as cv FROM presentation INNER JOIN places ON presentation.place_id = places.id INNER JOIN cities ON places.city_id = cities.id");
+    sql('presentation', tabledata, "SELECT nom, description, email_address as email, phone_number as tel, linkedin_link as linkedin, github_link as github,cv, places.place_name as entreprise, cities.city as ville FROM presentation INNER JOIN places ON presentation.place_id = places.id INNER JOIN cities ON places.city_id = cities.id");
 }
 
 module.exports.experiences = function(tabledata){
@@ -31,7 +31,7 @@ module.exports.competences = function(tabledata){
 }
 
 module.exports.projets = function(tabledata){
-    sql('projets',tabledata, 'SELECT projects.id, projects.project_name as titre, projects.project_description as description, projects.link_to_project as lien, dates.year as annee, places.place_name as lieu, mainImg.picture as mainImg, SecImg.picture as secImg, GROUP_CONCAT(skills.skill SEPARATOR ", ") as skills FROM projects INNER JOIN projects_skills ON projects_skills.projects_id = projects.id INNER JOIN skills ON projects_skills.skills_id = skills.id INNER JOIN dates ON projects.project_year_id = dates.id INNER JOIN places ON projects.place_id = places.id INNER JOIN images as mainImg ON projects.main_img_id = mainImg.id INNER JOIN images as SecImg ON projects.sec_img_id = SecImg.id GROUP BY projects.id'); 
+    sql('projets',tabledata, 'SELECT projects.id, projects.project_name as titre, projects.project_description as description, projects.link_to_project as lien, projects.github_link as git, dates.year as annee, places.place_name as lieu, mainImg.picture as mainImg, SecImg.picture as secImg, GROUP_CONCAT(skills.skill SEPARATOR ", ") as skills FROM projects INNER JOIN projects_skills ON projects_skills.projects_id = projects.id INNER JOIN skills ON projects_skills.skills_id = skills.id INNER JOIN dates ON projects.project_year_id = dates.id INNER JOIN places ON projects.place_id = places.id INNER JOIN images as mainImg ON projects.main_img_id = mainImg.id INNER JOIN images as SecImg ON projects.sec_img_id = SecImg.id GROUP BY projects.id'); 
 }
 
 // module.exports.projet = function(tabledata, id = 1){
